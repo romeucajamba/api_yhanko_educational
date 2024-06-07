@@ -61,10 +61,11 @@ Rede social para estudantes de tecnologia de nível nacional que recolhe dados d
 - [ ] O sistema deve permitir o usuário mudar de idioma;
 - [ ] O sistema deve permitir o usuário alterar nome e palavra passe;
 - [ ] O sistema deve permitir o usuário partilhar projetos com outros usuários;
-
+- [ ] O sistema deve permitir o usuário fazer logOut;
 
 ## Requisitos não funcionais
-- [] A senha do usuário precisa estar criptografada;
-- [] Os dados da aplicação precisam estar persistidos em um banco de dados PostgreSQL;
-- [] Todas listas de dados precisam estar paginadas com 20 itens por página;
-- [] O usuário deve ser identificado por um JWT(Json web Token);
+- [ ] A senha do usuário precisa estar criptografada;
+- [ ] Os dados da aplicação precisam estar persistidos em um banco de dados PostgreSQL;
+- [ ] Todas listas de dados precisam estar alinhadas na horizontal;
+- [ ] O usuário deve ser identificado por um JWT(Json web Token);
+- [ ] O usuário perde acesso a pltaforma se qubrar as regras;
