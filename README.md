@@ -5,6 +5,8 @@ Rede social para estudantes de tecnologia de nível nacional que recolhe dados d
 ## Regras de negócio
 - [ ] O usuário não pode se cadastrar na plataforma com email já cadastrado;
 - [ ] O sistema deve adicionar a sua nacionalidade na plataforma;
+- [ ] O usuário só deve ter no máximo 5000 conexões ou amigos;
+
 
 
 ## Requisitos funcionais
@@ -62,6 +64,9 @@ Rede social para estudantes de tecnologia de nível nacional que recolhe dados d
 - [ ] O sistema deve permitir o usuário alterar nome e palavra passe;
 - [ ] O sistema deve permitir o usuário partilhar projetos com outros usuários;
 - [ ] O sistema deve permitir o usuário fazer logOut;
+- [ ] O sistema deve permitir visualizar publicações;
+- [ ] O sistema deve permitir o usuário partilhar imagens, vídeos e textos nas publicações;
+- [ ] O sistema deve permitir enviar vídeos, imagens nas conversas privadas;
 
 ## Requisitos não funcionais
 - [ ] A senha do usuário precisa estar criptografada;
@@ -69,3 +74,6 @@ Rede social para estudantes de tecnologia de nível nacional que recolhe dados d
 - [ ] Todas listas de dados precisam estar alinhadas na horizontal;
 - [ ] O usuário deve ser identificado por um JWT(Json web Token);
 - [ ] O usuário perde acesso a pltaforma se qubrar as regras;
+- [ ] O usuário não pode alterar dados de outro usuários;
+- [ ] O usuário pode mencionar amigos nas publicações;
+- [ ] O usuário pode mencionar amigos em comentário;
