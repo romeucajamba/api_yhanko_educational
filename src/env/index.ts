@@ -14,9 +14,9 @@ const schemaEnv = z.object({
 const _env = schemaEnv.safeParse(process.env)
 
 if (_env.success == false){
-    console.error('Variáveis de ambiente inválida', _env.error.format())
+    console.error('Variáveis de ambiente inválida❌', _env.error.format())
 
-    throw new BadError('Variáveis de ambiente inválida')
+    throw new BadError('Variáveis de ambiente inválida❌')
 }
 
 export const env = _env.data
