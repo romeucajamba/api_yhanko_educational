@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "api for yhanko educational plataform",
   "main": "index.js",
+  "engines": {
+    "node":">=20"
+  },
   "scripts": {
     "server": "tsx watch src/server.ts",
     "start": "node build/server.js",
@@ -17,12 +20,12 @@
     "globals": "15.4.0",
     "tsup": "^8.1.0",
     "tsx": "^4.14.1",
-    "typescript": "^5.4.5",
-    "typescript-eslint": "7.12.0"
+    "typescript": "^5.4.5"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
     "fastify": "^4.27.0",
+    "pg": "8.12.0",
     "zod": "3.23.8"
   }
 }
