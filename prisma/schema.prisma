@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,17 +7,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Users {
-  id String @id @default(uuid())
+  id String  @id @default(uuid())
   name String
   email String
   password String
   bornDate String
-  expertise  AreaOfExpertise
-  country  Country
-  gender   Gender
+  expertise AreaOfExpertise
+  country Country
+  gender Gender
+  createdAt DateTime @default(now())
 
+  // Relacionamentos
+  sentMessages  Message[] @relation("SentMessages")
+  receivedMessages Message[] @relation("ReceivedMessages")
+  posts Post[]
+  profile Profile? 
+  profileId Int?
+  notifications Notification []
+  agenda Agenda []
+  graphic UsageEvent?
 
   @@map("users")
 }
@@ -239,4 +247,108 @@ enum Country {
 enum Gender {
   MALE
   FEMALE
+}
+
+model Profile {
+  id Int @id @default(autoincrement())
+  bio String?
+  residence String?
+  tech String?
+  connection Int
+  profilePictureUrl String?
+  coverPictureUrl String?
+  userId String @unique
+
+  user Users @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Message {
+  id String @id @default(uuid())
+  content String
+  senderId String
+  receiverId String
+  sentAt DateTime @default(now())
+
+  sender Users @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver Users @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+}
+
+model Post {
+  id  String   @id @default(uuid())
+  title String
+  content String
+  authorId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  author    Users @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  message   String
+  type      NotificationType
+  timestamp DateTime @default(now())
+  isRead    Boolean  @default(false)
+
+  user Users @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum NotificationType {
+  LIKE
+  COMMENT
+  MESSAGE
+  FOLLOW
+}
+
+model Agenda {
+  id String   @id @default(uuid())
+  title String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  notes Note[]
+  tasks Task[]
+
+  user Users @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Note {
+  id String   @id @default(uuid())
+  title String
+  content String
+  agendaId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  agenda    Agenda   @relation(fields: [agendaId], references: [id], onDelete: Cascade)
+}
+
+model Task {
+  id String @id @default(cuid())
+  title String
+  description String
+  state TaskState
+  agendaId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  agenda Agenda @relation(fields: [agendaId], references: [id], onDelete: Cascade)
+}
+
+enum TaskState {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+  CANCELED
+}
+
+model UsageEvent {
+  id String @id @default(cuid())
+  userId String @unique
+  action String   // Ex: "create_agenda", "create_post", "update_profile", "chat", etc.
+  timestamp DateTime @default(now())
+
+  user Users @relation(fields: [userId], references: [id])
 }
