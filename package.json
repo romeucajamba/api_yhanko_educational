@@ -4,12 +4,13 @@
   "description": "api for yhanko educational plataform",
   "main": "index.js",
   "engines": {
-    "node":">=20"
+    "node": ">=20"
   },
   "scripts": {
     "server": "tsx watch src/server.ts",
     "start": "node build/server.js",
-    "build": "tsup src --out-dir build"
+    "build": "tsup src --out-dir build",
+    "test": "vitest"
   },
   "author": "Romeu Cajamba",
   "license": "MIT",
@@ -20,7 +21,8 @@
     "globals": "15.4.0",
     "tsup": "^8.1.0",
     "tsx": "^4.14.1",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vitest": "2.1.0"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
