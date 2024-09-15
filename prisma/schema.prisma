@@ -1,20 +1,17 @@
 generator client {
   provider = "prisma-client-js"
 }
-
 datasource db {
   provider  = "postgresql"
   url  	    = env("DATABASE_URL")
-  // uncomment next line if you use Prisma <5.10
-  // directUrl = env("DATABASE_URL_UNPOOLED")
-}
 
+}
 model Users {
   id String  @id @default(uuid())
   name String
-  email String
-  password String
-  bornDate String
+  email String @unique
+  password_hash String
+  bornDate DateTime
   expertise AreaOfExpertise
   country Country
   gender Gender
@@ -25,7 +22,6 @@ model Users {
   receivedMessages Message[] @relation("ReceivedMessages")
   posts Post[]
   profile Profile? 
-  profileId Int?
   notifications Notification []
   agenda Agenda []
   graphic UsageEvent?
@@ -50,6 +46,7 @@ enum AreaOfExpertise {
   PRODUCT_MANAGER
   SYSTEM_ARCHITECT
   IT_SUPPORT
+  PROGRAMMER
 }
 
 enum Country {
@@ -250,7 +247,6 @@ enum Gender {
   MALE
   FEMALE
 }
-
 model Profile {
   id Int @id @default(autoincrement())
   bio String?
@@ -263,7 +259,6 @@ model Profile {
 
   user Users @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
-
 model Message {
   id String @id @default(uuid())
   content String
@@ -274,7 +269,6 @@ model Message {
   sender Users @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
   receiver Users @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
 }
-
 model Post {
   id  String   @id @default(uuid())
   title String
@@ -285,7 +279,6 @@ model Post {
   
   author    Users @relation(fields: [authorId], references: [id], onDelete: Cascade)
 }
-
 model Notification {
   id        String   @id @default(cuid())
   userId    String
@@ -303,19 +296,17 @@ enum NotificationType {
   MESSAGE
   FOLLOW
 }
-
 model Agenda {
   id String   @id @default(uuid())
   title String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   userId    String
-  notes Note[]
-  tasks Task[]
+  notes Note []
+  tasks Task []
 
   user Users @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
-
 model Note {
   id String   @id @default(uuid())
   title String
@@ -326,7 +317,6 @@ model Note {
 
   agenda    Agenda   @relation(fields: [agendaId], references: [id], onDelete: Cascade)
 }
-
 model Task {
   id String @id @default(cuid())
   title String
