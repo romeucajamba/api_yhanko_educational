@@ -5,10 +5,9 @@ import { BadError } from '../error/error';
 
 const schemaEnv = z.object({
     NODE_ENV: z.enum(['dev', 'test', 'production']).default('dev'),
-    JWT_SECRET: z.string(),
     PORT: z.coerce.number().default(4000),
     DATABASE_URL: z.string(),
-    DATABASE_CLIENT: z.enum(["mysql", "pg"])
+    DATABASE_CLIENT: z.enum(["mysql", "pg"]).default("mysql")
 })
 
 const _env = schemaEnv.safeParse(process.env)

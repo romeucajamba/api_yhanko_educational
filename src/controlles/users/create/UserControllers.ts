@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import z  from "zod";
-import { EmailExists } from "@/error/error";
+import { EmailExists, BadRequest } from "@/error/error";
 import { createUser } from "../factory/user";
 
 export async function userController(request: FastifyRequest, reply: FastifyReply){
@@ -36,8 +36,8 @@ export async function userController(request: FastifyRequest, reply: FastifyRepl
             "PRODUCT_MANAGER",
             "SYSTEM_ARCHITECT",
             "IT_SUPPORT",
-            "Programmer"
-        ]).default("Programmer"),
+            "PROGRAMMER"
+        ]).default("PROGRAMMER"),
         country: z.enum([
           'AFGHANISTAN',
           'ALBANIA',
@@ -239,7 +239,7 @@ export async function userController(request: FastifyRequest, reply: FastifyRepl
       
     try {
       const registerUserUsecase = createUser()
-      await registerUserUsecase.execute({
+      const registerUser = await registerUserUsecase.execute({
           name,
           email, 
           password,
@@ -253,6 +253,11 @@ export async function userController(request: FastifyRequest, reply: FastifyRepl
       if(err instanceof EmailExists){
           return reply.status(409).send({message: err.message});
       }
+      
+      if(err instanceof BadRequest){
+        return reply.status(402).send({message: "Não foi possível fazer o cadastro, por favor tente mais tard"})
+     }
+
       throw err
   }
 

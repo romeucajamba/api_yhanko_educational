@@ -1,8 +1,6 @@
 import { EmailExists } from "../../../error/error";
-import { hash } from "crypto";
-import { RegisterUser } from "@/interfaces/user";
-import { UserRepository } from "@/interfaces/user";
-import { UserResponse } from "@/interfaces/user";
+import { hash } from "bcryptjs";
+import { RegisterUser, UserRepository, UserResponse } from "@/interfaces/user";
 
 export class CreateUserUseCase {
     constructor(private userRepository: UserRepository){
@@ -26,7 +24,7 @@ export class CreateUserUseCase {
         
         const password_hash = await hash(password, 6);
 
-        const registerUser = await this.userRepository.create(
+        const user = await this.userRepository.create(
             {
                 name,
                 email,
@@ -38,6 +36,6 @@ export class CreateUserUseCase {
             }
         );
 
-        return { registerUser }
+        return { user }
     }
 }

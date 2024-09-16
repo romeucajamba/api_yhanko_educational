@@ -3,7 +3,7 @@ import { AreaOfExpertise, Country, Gender, Prisma, Users } from "@prisma/client"
 export interface RegisterUser{
     name: string,
     email: string,
-    bornDate: Date,
+    bornDate: string | Date,
     country: Country,
     expertise: AreaOfExpertise,
     gender: Gender,
@@ -16,5 +16,5 @@ export interface UserRepository {
 }
 
 export interface UserResponse {
-    registerUser: Users
+    user: Users
 }
