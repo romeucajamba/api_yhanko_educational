@@ -11,7 +11,8 @@
     "start": "node build/server.js",
     "build": "tsup src --out-dir build",
     "test": "vitest",
-    "test:run": "vitest run"
+    "test:run": "vitest run",
+    "coverage": "vitest --coverage"
   },
   "author": "Romeu Cajamba",
   "license": "MIT",
