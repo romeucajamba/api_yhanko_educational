@@ -12,7 +12,8 @@
     "build": "tsup src --out-dir build",
     "test": "vitest",
     "test:run": "vitest run",
-    "coverage": "vitest --coverage"
+    "coverage": "vitest --coverage",
+    "test:ui": "vitest --ui"
   },
   "author": "Romeu Cajamba",
   "license": "MIT",

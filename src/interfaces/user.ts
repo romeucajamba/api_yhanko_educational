@@ -18,3 +18,8 @@ export interface UserRepository {
 export interface UserResponse {
     user: Users
 }
+
+export type UserAuthenticate = {
+    email: string,
+    password: string
+}
