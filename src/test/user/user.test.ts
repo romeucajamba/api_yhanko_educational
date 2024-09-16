@@ -1,5 +1,5 @@
 import { describe, test, expect } from "vitest";
-import { CreateUserUseCase } from "../../services/user/create/createUserUseCase";
+import { CreateUserUseCase } from "../../services/user/createUserUseCase";
 import { InMemmoryRepository } from "../../models/user/in-memmory-database";
 import { beforeEach } from "node:test";
 import { compare } from "bcryptjs";

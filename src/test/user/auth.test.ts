@@ -1,8 +1,8 @@
-import { describe, expect, test } from "vitest";
-import { InMemmoryRepository } from "../../models/user/in-memmory-database";
-import { AuthenticateCreateUserUseCase } from "../../services/user/auth/authUseCase";
 import { hash } from "bcryptjs";
+import { describe, expect, test } from "vitest";
 import { InvalidCredentials } from "../../error/error";
+import { InMemmoryRepository } from "../../models/user/in-memmory-database";
+import { AuthenticateCreateUserUseCase } from "../../services/auth/authUseCase";
 
 describe("Authenticae use case", () => {
     test("It should be able to authenticate", async () => {

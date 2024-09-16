@@ -1,6 +1,6 @@
-import { UserAuthenticate, UserRepository, UserResponse} from "@/interfaces/user";
-import { InvalidCredentials } from "../../../error/error";
+import { UserAuthenticate, UserRepository, UserResponse } from "@/interfaces/user";
 import { compare } from "bcryptjs";
+import { InvalidCredentials } from "../../error/error";
 
 export class AuthenticateCreateUserUseCase {
     constructor( private userRepository: UserRepository){}

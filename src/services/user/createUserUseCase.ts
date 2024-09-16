@@ -1,4 +1,4 @@
-import { EmailExists } from "../../../error/error";
+import { EmailExists } from "../../error/error";
 import { hash } from "bcryptjs";
 import { RegisterUser, UserRepository, UserResponse } from "@/interfaces/user";
 

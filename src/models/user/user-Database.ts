@@ -3,6 +3,15 @@ import { Prisma, Users } from "@prisma/client";
 import { prisma } from "../db/dbConnect";
 
 export class UserDatabase implements UserRepository {
+    async findById(id: string): Promise<Users | null> {
+        const user = await prisma.users.findUnique({
+            where:{
+                id
+            }
+        });
+
+        return user
+    }
     async findEmail(email: string): Promise<Users | null> {
         const user = await prisma.users.findUnique({
             where:{

@@ -1,4 +1,4 @@
-import { CreateUserUseCase } from "@/services/user/create/createUserUseCase";
+import { CreateUserUseCase } from "@/services/user/createUserUseCase";
 import { UserDatabase } from "@/models/user/user-Database";
 
 export function createUser(){
