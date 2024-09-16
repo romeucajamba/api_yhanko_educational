@@ -3,16 +3,12 @@ import { Prisma, Users } from "@prisma/client";
 import { prisma } from "../db/dbConnect";
 
 export class UserDatabase implements UserRepository {
-    async findEmail(email: string): Promise<Users> {
-        const user = await prisma.users.findFirst({
+    async findEmail(email: string): Promise<Users | null> {
+        const user = await prisma.users.findUnique({
             where:{
                 email
             }
         });
-
-        if(!user){
-            throw new Error('User not found')
-        }
 
         return user
     }
