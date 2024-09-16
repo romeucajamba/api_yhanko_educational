@@ -30,6 +30,7 @@
     "vitest": "2.1.0"
   },
   "dependencies": {
+    "@fastify/cors": "9.0.1",
     "@prisma/client": "5.19.1",
     "bcryptjs": "2.4.3",
     "dotenv": "^16.4.5",

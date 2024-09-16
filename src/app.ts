@@ -1,11 +1,19 @@
 import fastify from "fastify";
 import { ZodError } from "zod";
 import { env } from "./env";
+import  cors  from '@fastify/cors';
 import { userRoutes } from "./routes/user.routes"
 
 
 export const app = fastify();
 
+app.register(cors, {
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+  });
+  
 
 app.register(userRoutes);
 
