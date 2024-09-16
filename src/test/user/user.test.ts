@@ -13,7 +13,7 @@ import { EmailExists } from "../../error/error";
     sut = new CreateUserUseCase(userRepository);
 });*/
 
-describe("Creatye user", async () => {
+describe("Create user use case", async () => {
 
     test("It should be able to register user", async () => {
 

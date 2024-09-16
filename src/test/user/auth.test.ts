@@ -4,7 +4,7 @@ import { InvalidCredentials } from "../../error/error";
 import { InMemmoryRepository } from "../../models/user/in-memmory-database";
 import { AuthenticateCreateUserUseCase } from "../../services/auth/authUseCase";
 
-describe("Authenticae use case", () => {
+describe("Authenticase use case", () => {
     test("It should be able to authenticate", async () => {
 
         const repsoitory = new InMemmoryRepository();
