@@ -59,10 +59,12 @@ describe("Creatye user", async () => {
 
         const  userRepository = new InMemmoryRepository();
          const sut = new CreateUserUseCase(userRepository);
+
+         const email = "romeucajamba@gmail.com"
  
           await sut.execute({
              name: "Romeu Cajamba",
-             email: "romeucajamba@gmail.com", 
+             email, 
              password: "Imaculada",
              bornDate: "08/02/1999",
              country: "ANGOLA",
@@ -73,12 +75,12 @@ describe("Creatye user", async () => {
         expect(() =>
             sut.execute({
                 name: "Romeu Cajamba",
-                email: "romeucajamba@gmail.com", 
+                email, 
                 password: "Imaculada",
                 bornDate: "08/02/1999",
                 country: "ANGOLA",
                 expertise: "PRODUCT_MANAGER", 
                 gender: "MALE",
-        })).toBeInstanceOf(EmailExists)
+        })).rejects.toBeInstanceOf(EmailExists)
      })
 })

@@ -19,7 +19,7 @@ export class CreateUserUseCase {
         const userWithSameEmail = await this.userRepository.findEmail(email)
     
         if ( userWithSameEmail) {
-            throw new  EmailExists("Email já está cadastado na plataforma!")
+            throw new  EmailExists("Usuário já está cadastado na plataforma!")
         }
         
         const password_hash = await hash(password, 6);
