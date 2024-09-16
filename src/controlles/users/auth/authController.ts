@@ -15,10 +15,21 @@ export async function authController(request: FastifyRequest, reply: FastifyRepl
       
     try {
       const authUserUsecase = authenticateUser()
-       await authUserUsecase.execute({
+       const { user } = await authUserUsecase.execute({
           email, 
           password,
       });
+
+      const token = await reply.jwtSign(
+        {},
+        {
+            sign: {
+                sub: user.id
+            },
+        }, 
+      );
+
+      return reply.status(200).send({token});
 
   } catch (err) {
       if(err instanceof InvalidCredentials){
@@ -31,6 +42,4 @@ export async function authController(request: FastifyRequest, reply: FastifyRepl
 
       throw err
   }
-
-  return reply.status(200).send("Seja bem-vindo de volta ✔");
 }

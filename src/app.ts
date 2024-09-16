@@ -2,19 +2,28 @@ import fastify from "fastify";
 import { ZodError } from "zod";
 import { env } from "./env";
 import  cors  from '@fastify/cors';
+import fastifyJwt from "@fastify/jwt";
+
+
+
+
 import { userRoutes } from "./routes/user.routes"
 
 
 export const app = fastify();
 
+app.register(fastifyJwt, {
+    secret: env.JWT_SECRET,
+    signOptions: { expiresIn: '7d' }  // expires in 1 day
+})
+
 app.register(cors, {
     origin: ["http://localhost:3000"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
   });
   
-
 app.register(userRoutes);
 
 app.setErrorHandler((error, _, reply) => {
@@ -25,6 +34,7 @@ app.setErrorHandler((error, _, reply) => {
     if(env.NODE_ENV != 'production'){
         console.error(error)
     }
+
     else {
         //Utilizar ferramenta de observação para poder ser avisado que o erro aconteceu quando estiver em produção
     }

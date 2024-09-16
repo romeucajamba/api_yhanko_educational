@@ -7,6 +7,7 @@ const schemaEnv = z.object({
     NODE_ENV: z.enum(['dev', 'test', 'production']).default('dev'),
     PORT: z.coerce.number().default(4000),
     DATABASE_URL: z.string(),
+    JWT_SECRET: z.string(),
     DATABASE_CLIENT: z.enum(["mysql", "pg"]).default("mysql")
 })
 

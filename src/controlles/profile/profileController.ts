@@ -4,17 +4,20 @@ import { BadError } from "@/error/error";
 import { profileUseCase } from "./fatoryProfile";
 
 export async function profileController(request: FastifyRequest, reply: FastifyReply){
-      
-    const profileBodySchema = z.object({
-        id: z.string().uuid()
-    });
 
-    const { id } = profileBodySchema.parse(request.params);
-
-      
     try {
+
       const getProfile = profileUseCase()
-       await getProfile.execute(id);
+      const {user} = await getProfile.execute(
+        request.user.sub
+      );
+
+      return reply.status(200).send({ 
+        user: {
+            ...user,
+            password_hash: undefined
+        } 
+    });
 
   } catch (err) {
       if(err instanceof BadError){
@@ -23,6 +26,4 @@ export async function profileController(request: FastifyRequest, reply: FastifyR
 
       throw err
   }
-
-  return reply.status(200).send();
 }
