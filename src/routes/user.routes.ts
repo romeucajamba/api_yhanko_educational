@@ -6,4 +6,5 @@ import { authController } from "../controlles/users/auth/authController";
 export async function userRoutes(app: FastifyInstance) {
     app.post('/users', userController)
     app.post('/login', authController)
+    app.get('/profile', );
 }

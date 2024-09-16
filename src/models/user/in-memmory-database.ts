@@ -16,10 +16,10 @@ export class InMemmoryRepository implements UserRepository {
     }
     async create(data: Prisma.UsersCreateInput): Promise<Users> {
         
-        let bornDateInput: string | Date = '1990-01-01'; // Pode ser string ou Date
+        let bornDateInput: string | Date = '1990-01-01'; 
 
         if (typeof bornDateInput === 'string') {
-            bornDateInput = new Date(bornDateInput); // Converte para Date
+            bornDateInput = new Date(bornDateInput);
         }
 
         const user: Users = {
