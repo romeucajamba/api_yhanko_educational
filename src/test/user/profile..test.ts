@@ -30,6 +30,6 @@ describe("Get user profile", () => {
         const repsoitory = new InMemmoryRepository();
         const sut = new UserProfileUseCase(repsoitory);
 
-            await expect(() => sut.execute("non-existing-id")).rejects.toBeInstanceOf(BadError)
+        await expect(() => sut.execute("non-existing-id")).rejects.toBeInstanceOf(BadError)
     });
 })
