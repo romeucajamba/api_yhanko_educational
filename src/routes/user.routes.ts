@@ -6,8 +6,8 @@ import { verifyJWT } from "@/middlewares/verify-jwt";
 import { refreshTokenController } from "../controlles/users/auth/refreshTokent";
 
 export async function userRoutes(app: FastifyInstance) {
-    app.post('/users', userController)
-    app.post('/login', authController)
+    app.post('/users', userController);
+    app.post('/login', authController);
     app.get('/me', {onRequest: [verifyJWT]}, profileController);
-    app.patch('/token/refresh', refreshTokenController)
+    app.patch('/token/refresh', refreshTokenController);
 }
