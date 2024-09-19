@@ -25,6 +25,9 @@ model Users {
   notifications Notification []
   agenda Agenda []
   graphic UsageEvent?
+  groupMessage GroupMessage []
+  groupMember GroupMember []
+  groups Group []
 
   @@map("users")
 }
@@ -265,6 +268,11 @@ model Message {
   senderId String
   receiverId String
   sentAt DateTime @default(now())
+  audioUrl    String?    
+  videoUrl    String?   
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  deletedAt   DateTime?  
 
   sender Users @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
   receiver Users @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
@@ -343,4 +351,67 @@ model UsageEvent {
   timestamp DateTime @default(now())
 
   user Users @relation(fields: [userId], references: [id])
+}
+
+model Group {
+  id            String     @id @default(uuid())
+  name          String
+  description   String?
+  photo         String?   
+  type          GroupType  
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  adminId       String    
+  admin         Users       @relation(fields: [adminId], references: [id]) 
+  members       GroupMember[]
+  messages      GroupMessage []
+}
+
+enum GroupType {
+  STUDY
+  WORK
+  TECHTALKS  
+  CODE_MASTERS  
+  INNOVATORS_HUB  
+  DEV_EXCHANGE  
+  FUTURE_CODERS  
+  TECHIES_UNITED  
+  GROWTH_HACKERS  
+  LEARNING_LOOP  
+  NEXTGEN_DEVELOPERS  
+  DEVSPHERE  
+  CODECRAFT  
+  COLLABORATIVE_CODERS  
+  TECH_EXPLORERS  
+  INNOVATION_FORGE  
+  CODE_ACADEMY  
+  DEVTHINKERS  
+  DIGITAL_PIONEERS  
+  TECHUP_ACADEMY  
+  TECH_SYNERGY  
+  PROGRESSIVE_CODERS  
+  OTHER
+}
+
+model GroupMember {
+  id          String   @id @default(uuid())
+  groupId     String
+  group       Group    @relation(fields: [groupId], references: [id])
+  userId      String
+  user        Users     @relation(fields: [userId], references: [id])
+  isAdmin     Boolean  @default(false) 
+}
+
+model GroupMessage {
+  id          String     @id @default(uuid())
+  groupId     String
+  group       Group      @relation(fields: [groupId], references: [id])
+  userId      String
+  user        Users       @relation(fields: [userId], references: [id])
+  content     String?    
+  audioUrl    String?    
+  videoUrl    String?    
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  deletedAt   DateTime?  
 }
