@@ -4,12 +4,10 @@ import { env } from "./env";
 import  cors  from '@fastify/cors';
 import fastifyJwt from "@fastify/jwt";
 import fastifyCookie from "@fastify/cookie";
-
-
-
+import i18n  from 'fastify-i18n';
+import path from 'path';
 
 import { userRoutes } from "./routes/user.routes"
-
 
 export const app = fastify();
 
@@ -31,6 +29,15 @@ app.register(cors, {
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
   });
+
+app.register(i18n, {
+    locales: ['en', 'pt-BR', 'fr', 'es', 'de'], 
+    directory: path.join(__dirname, 'locales'), 
+    defaultLocale: 'en',
+    queryParameter: 'lang',
+    cookie: 'lang', 
+    autoReload: true, 
+});
   
 app.register(userRoutes);
 

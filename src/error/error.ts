@@ -7,3 +7,5 @@ export class BadRequest extends Error {}
 export class EmailExists extends Error {}
 
 export class InvalidCredentials extends Error {}
+
+export class ResourceNotFound extends Error {}

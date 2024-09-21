@@ -28,6 +28,7 @@ model Users {
   groupMessage GroupMessage []
   groupMember GroupMember []
   groups Group []
+  comment Comment []
 
   @@map("users")
 }
@@ -251,17 +252,31 @@ enum Gender {
   FEMALE
 }
 model Profile {
-  id Int @id @default(autoincrement())
-  bio String?
-  residence String?
-  tech String?
-  connection Int
+  id   String     @id @default(uuid())
+  bio              String?
+  residence        String?
+  tech             String?
   profilePictureUrl String?
-  coverPictureUrl String?
-  userId String @unique
+  coverPictureUrl   String?
+  userId           String   @unique
 
-  user Users @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user             Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  sentConnections    Connection[] @relation("RequesterRelation")
+  receivedConnections Connection[] @relation("ReceiverRelation")
 }
+
+model Connection {
+  id  String      @id @default(uuid())
+  requesterId String 
+  receiverId  String 
+  status      String   @default("pending") // Status da conexão: "pending", "accepted", "rejected, removed"
+  createdAt   DateTime @default(now())
+
+  requester   Profile  @relation("RequesterRelation", fields: [requesterId], references: [id])
+  receiver    Profile  @relation("ReceiverRelation", fields: [receiverId], references: [id])
+}
+
 model Message {
   id String @id @default(uuid())
   content String
@@ -286,7 +301,20 @@ model Post {
   updatedAt DateTime @updatedAt
   
   author    Users @relation(fields: [authorId], references: [id], onDelete: Cascade)
+   comments  Comment[]  
 }
+
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  postId    String
+  authorId  String
+  createdAt DateTime @default(now())
+
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author    Users    @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
 model Notification {
   id        String   @id @default(cuid())
   userId    String

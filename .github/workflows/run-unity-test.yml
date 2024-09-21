@@ -1,0 +1,36 @@
+name: Run unity test
+
+# Toda vez que um usuário fizer push, a gente vai executar uma sequência de tarefas
+on: [push]
+
+jobs:
+  run-unity-test:
+    name: Run unity test
+    runs-on: ubuntu-latest  # Vai executar os testes unitários da minha aplicação no ambiente Linux, a última versão
+    
+    services:
+      postgres:
+        image: bitnami/postgresql
+        ports:
+         - 5432:5432
+        env:
+          POSTGRESQL_USERNAME: mypstgresdb
+          POSTGRESQL_PASSWORD: root
+          POSTGRESQL_DATABASE: yhankoet
+
+    steps:
+      - uses: actions/checkout@v3  # Vai baixar o código na máquina
+
+      - uses: actions/setup-node@v3 # vai executar a setup-node com a versão 22
+        with:
+          node-version: 22
+          cache: 'npm' #vai criar cache das dependências do project.
+
+      - run: npm ci # vai rodar o comando no terminal sem fazer perguntas ou alterar alguma coisa, só vai instalar as dependências
+
+      - run: npm run test # vai executar os testes unitário
+        env:
+          NODE_ENV: dev
+          JWT_SECRET: bsdhghdadbnmamdnjkajhfhsguiyeuyuioerweoincbvm
+          PORT: 4000
+          DATABASE_URL: "postgresql://ETDB_owner:KQ26khTabldq@ep-green-flower-a5nh5nw5-pooler.us-east-2.aws.neon.tech/ETDB?sslmode=require"
