@@ -15,7 +15,7 @@ export async function passwordController(request: FastifyRequest, reply: Fastify
 
       const changePassword = passwordUseCase()
       await changePassword.execute({
-        request.user.sub,
+        id:request.user.sub,
         newPassword, 
         lastPassword
     });
