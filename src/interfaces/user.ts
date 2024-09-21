@@ -10,6 +10,11 @@ export interface RegisterUser{
     password: string
 }
 
+export interface UserPassword {
+    lastPassword: string,
+    newPassword: string,
+    id: string
+}
 export interface UserRepository {
     create(data: Prisma.UsersCreateInput): Promise<Users>;
     findEmail(email: string): Promise<Users | null>

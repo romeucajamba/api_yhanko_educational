@@ -14,11 +14,11 @@ export async function passwordController(request: FastifyRequest, reply: Fastify
     try {
 
       const changePassword = passwordUseCase()
-      await changePassword.execute(
+      await changePassword.execute({
         request.user.sub,
         newPassword, 
         lastPassword
-    );
+    });
 
       return reply.status(200).send({ 
        Message:"Palavra-passe alterada com sucesso ✔"
