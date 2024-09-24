@@ -19,7 +19,8 @@ export interface UserRepository {
     create(data: Prisma.UsersCreateInput): Promise<Users>;
     findEmail(email: string): Promise<Users | null>
     findById(id: string): Promise<Users | null>;
-    updatePassword(id: string, password_hash: string): Promise<Users>
+    updatePassword(id: string, password_hash: string): Promise<Users>;
+    changeName(id: string, name:string): Promise <Users>
 }
 
 export interface UserResponse {

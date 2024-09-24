@@ -5,6 +5,28 @@ import { randomUUID } from "node:crypto";
 export class InMemmoryRepository implements UserRepository {
     public users: Users[] = [];
 
+    async changeName(id: string, name: string): Promise<Users> {
+        const user = this.users.find((user) => user.id === id);
+        
+        if (!user) {
+            throw new Error(`User with id ${id} not found`); 
+        }
+    
+        user.name = name;
+    
+        return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            password_hash: user.password_hash,
+            bornDate: user.bornDate,
+            expertise: user.expertise,
+            country: user.country,
+            gender: user.gender,
+            createdAt: user.createdAt
+        };
+    }
+
     async updatePassword(id: string, password_hash: string): Promise<Users> {
         const user = this.users.find((user) => user.id === id);
         

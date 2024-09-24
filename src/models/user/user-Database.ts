@@ -3,6 +3,18 @@ import { Prisma, Users } from "@prisma/client";
 import { prisma } from "../db/dbConnect";
 
 export class UserDatabase implements UserRepository {
+    async changeName(id: string, name: string): Promise<Users> {
+        const user = await prisma.users.update({
+            where: {
+                id
+            },
+            data: {
+                name
+            }
+        });
+
+        return user
+    }
 
     async updatePassword(id: string, password_hash: string): Promise<Users> {
         const user = await prisma.users.update({

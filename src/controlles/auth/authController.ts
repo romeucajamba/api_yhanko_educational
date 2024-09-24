@@ -1,7 +1,7 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import z  from "zod";
 import { InvalidCredentials, BadRequest } from "@/error/error";
-import { authenticateUser } from "../factory/auth";
+import { authenticateUser } from "./factory/auth";
 
 export async function authController(request: FastifyRequest, reply: FastifyReply){
       
