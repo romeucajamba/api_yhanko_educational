@@ -5,22 +5,30 @@ import { upadatenameUseCase } from "./fatory/upadateNameFactory";
 
 export async function updateNameController(request: FastifyRequest, reply: FastifyReply) {
     const bodySchema = z.object({
-            name: z.string()
+        name: z.string(),
+            
+    });
+
+    const paramsSchema = z.object({
+        id: z.string().uuid()
     });
     
-    const { name } = bodySchema.parse(request.params);
+    const { id } = paramsSchema.parse(request.params)
+    
+    const { name } = bodySchema.parse(request.body);
 
     try {
         const changeName = upadatenameUseCase();
 
-        await changeName.execute({id: request.user.sub, name});
+        await changeName.execute({id, name});
 
         return reply.status(200).send({ 
-            Message:"Palavra-passe alterada com sucesso ✔"
+            message:"Nome de usuário alterado com sucesso ✔"
          });
         
     } catch (err) {
         if(err instanceof BadError){
+            console.log(err)
             return reply.status(404).send({message: err.message});
         }
   

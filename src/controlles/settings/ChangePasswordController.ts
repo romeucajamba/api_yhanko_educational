@@ -1,7 +1,7 @@
-import { FastifyRequest, FastifyReply } from "fastify";
-import z  from "zod";
 import { BadError } from "@/error/error";
-import { passwordUseCase } from "./fatory/fatoryPassword.ts";
+import { FastifyReply, FastifyRequest } from "fastify";
+import z from "zod";
+import { passwordUseCase } from "./fatory/fatoryPassword.ts.js";
 
 export async function passwordController(request: FastifyRequest, reply: FastifyReply){
 
@@ -9,19 +9,24 @@ export async function passwordController(request: FastifyRequest, reply: Fastify
         newPassword: z.string({required_error: "The new password is require"}),
         lastPassword: z.string({required_error: "The last password is require"})
     });
+     
+    const paramsSchema = z.object({
+      id: z.string().uuid(),
+    });
 
+    const { id } = paramsSchema.parse(request.params)
     const { newPassword, lastPassword } = bodySchema.parse(request.body);
     try {
 
       const changePassword = passwordUseCase()
       await changePassword.execute({
-        id:request.user.sub,
+        id,
         newPassword, 
         lastPassword
     });
 
       return reply.status(200).send({ 
-       Message:"Palavra-passe alterada com sucesso ✔"
+       message:"Palavra-passe alterada com sucesso ✔"
     });
 
   } catch (err) {
