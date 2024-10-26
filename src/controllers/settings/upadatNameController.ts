@@ -16,7 +16,6 @@ export async function updateNameController(request: FastifyRequest, reply: Fasti
     const { id } = paramsSchema.parse(request.params)
     
     const { name } = bodySchema.parse(request.body);
-
     try {
         const changeName = upadatenameUseCase();
 

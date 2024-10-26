@@ -3,6 +3,7 @@ import { makeAcceptConnectionRequestUseCase } from "./factories/acceptConnection
 
 export async function acceptConnectionRequestController(request: FastifyRequest, reply: FastifyReply) {
     const { connectionId } = request.params as { connectionId: string };
+    
     const useCase = makeAcceptConnectionRequestUseCase();
   
     try {
