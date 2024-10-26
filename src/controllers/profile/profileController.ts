@@ -1,7 +1,6 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import z  from "zod";
 import { BadError } from "@/error/error";
-import { profileUseCase } from "./fatoryProfile";
+import { profileUseCase } from "./factories/fatoryProfile";
 
 export async function profileController(request: FastifyRequest, reply: FastifyReply){
 

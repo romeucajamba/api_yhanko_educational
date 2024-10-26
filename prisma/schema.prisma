@@ -29,6 +29,8 @@ model Users {
   groupMember GroupMember []
   groups Group []
   comment Comment []
+  sentConnections    Connection[] @relation("RequesterRelation")
+  receivedConnections Connection[] @relation("ReceiverRelation")
 
   @@map("users")
 }
@@ -259,11 +261,7 @@ model Profile {
   profilePictureUrl String?
   coverPictureUrl   String?
   userId           String   @unique
-
   user             Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  sentConnections    Connection[] @relation("RequesterRelation")
-  receivedConnections Connection[] @relation("ReceiverRelation")
 }
 
 model Connection {
@@ -273,8 +271,8 @@ model Connection {
   status      String   @default("pending") // Status da conexão: "pending", "accepted", "rejected, removed"
   createdAt   DateTime @default(now())
 
-  requester   Profile  @relation("RequesterRelation", fields: [requesterId], references: [id])
-  receiver    Profile  @relation("ReceiverRelation", fields: [receiverId], references: [id])
+  requester   Users  @relation("RequesterRelation", fields: [requesterId], references: [id], map: "FK_SenderId")
+  receiver    Users  @relation("ReceiverRelation", fields: [receiverId], references: [id], map: "FK_ReceiverId")
 }
 
 model Message {
@@ -301,7 +299,7 @@ model Post {
   updatedAt DateTime @updatedAt
   
   author    Users @relation(fields: [authorId], references: [id], onDelete: Cascade)
-   comments  Comment[]  
+  comments  Comment[]  
 }
 
 model Comment {

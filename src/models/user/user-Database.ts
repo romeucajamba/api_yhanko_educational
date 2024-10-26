@@ -41,9 +41,9 @@ export class UserDatabase implements UserRepository {
                         residence: true,
                         tech: true,
                         profilePictureUrl: true,
-                        connection: true
                     }
                 },
+                sentConnections: true
 
             }
         });
