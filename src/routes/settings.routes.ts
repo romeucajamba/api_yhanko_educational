@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
-import { passwordController } from "../controlles/settings/ChangePasswordController";
-import { updateNameController } from "../controlles/settings/upadatNameController";
+import { passwordController } from "../controllers/settings/changePasswordController";
+import { updateNameController } from "../controllers/settings/upadatNameController";
 
 export async function settingRoutes(app: FastifyInstance) {
     app.put('/set/:id/name', updateNameController);

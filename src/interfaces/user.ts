@@ -20,7 +20,8 @@ export interface UserRepository {
     findEmail(email: string): Promise<Users | null>
     findById(id: string): Promise<Users | null>;
     updatePassword(id: string, password_hash: string): Promise<Users>;
-    changeName(id: string, name:string): Promise <Users>
+    changeName(id: string, name:string): Promise <Users>;
+    recoveryPassWord(email: string, password: string): Promise <Users>
 }
 
 export interface UserResponse {

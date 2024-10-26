@@ -53,4 +53,16 @@ export class UserDatabase implements UserRepository {
         
         return user;
     }
+    async recoveryPassWord(email: string, password: string): Promise<Users> {
+        const user = await prisma.users.update({
+            where:{
+                email
+            },
+            data: {
+                password_hash: password
+            }
+        });
+
+        return user
+    }
 }
