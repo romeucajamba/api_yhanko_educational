@@ -32,6 +32,19 @@ export class UserDatabase implements UserRepository {
         const user = await prisma.users.findUnique({
             where:{
                 id
+            },
+            include: {
+                profile: {
+                    select:{
+                        bio:true,
+                        coverPictureUrl: true,
+                        residence: true,
+                        tech: true,
+                        profilePictureUrl: true,
+                        connection: true
+                    }
+                },
+
             }
         });
 
