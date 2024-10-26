@@ -1,7 +1,7 @@
 import { FastifyRequest, FastifyReply} from "fastify"
-import { insertProfileDataFactory } from "./factories/insertProfileDataFactory";
+import { updateProfileDataFactory } from "./factories/updaterProfileFactory";
 
-export async function insertProfileDataController(
+export async function updateProfileDataController(
     request: FastifyRequest<{
         Body: {
             bio: string;
@@ -23,7 +23,7 @@ export async function insertProfileDataController(
     try {
         const { bio, residence, tech } = request.body;
 
-        const usecase = insertProfileDataFactory();
+        const usecase = updateProfileDataFactory();
         const profile = await usecase.execute(
             request.user.sub,
             bio,

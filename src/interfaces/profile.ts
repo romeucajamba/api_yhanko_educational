@@ -12,10 +12,10 @@ export interface ProfileRepository{
     ): Promise<Profile>
     update(
         id: string,
-        bio?:string,
-        residence?: string,
-        tech?: string,
-        profilePictureUrl?: string,
-        coverPictureUrl?: string
+        bio?:string| null | undefined,
+        residence?: string| null | undefined,
+        tech?: string| null | undefined,
+        profilePictureUrl?: string | null | undefined,
+        coverPictureUrl?: string| null | undefined
     ): Promise <void>
 }

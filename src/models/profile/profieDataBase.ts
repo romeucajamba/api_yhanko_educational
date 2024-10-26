@@ -43,7 +43,7 @@ export class ProfileDatabase implements ProfileRepository {
                 profilePictureUrl,
                 coverPictureUrl,
                 user: {
-                    connect: { id: userId }, // Conecte ao ID do usuário existente
+                    connect: { id: userId },
                 },
             },
 
