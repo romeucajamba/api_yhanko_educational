@@ -3,5 +3,6 @@ import { SendConnectionRequestUseCase } from "../../../services/connection/sendC
 
 export function makeSendConnectionRequestUseCase() {
   const repository = new ConnectionDataBase();
-  const useCase = new SendConnectionRequestUseCase(repository)
+  const useCase = new SendConnectionRequestUseCase(repository);
+  return useCase;
 };

@@ -4,4 +4,5 @@ import { GetConnectionRequestUseCase } from "../../../services/connection/getCon
 export function makeGetConnectionRequestUseCase() {
   const repository = new ConnectionDataBase();
   const useCase = new GetConnectionRequestUseCase(repository)
+  return useCase;
 };

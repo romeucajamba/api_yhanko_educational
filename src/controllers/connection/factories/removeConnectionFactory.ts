@@ -3,5 +3,6 @@ import { RemoveConnectionRequestUseCase } from "../../../services/connection/rem
 
 export function makeRemoveConnectionRequestUseCase() {
   const repository = new ConnectionDataBase();
-  const useCase = new RemoveConnectionRequestUseCase(repository)
+  const useCase = new RemoveConnectionRequestUseCase(repository);
+  return useCase;
 };

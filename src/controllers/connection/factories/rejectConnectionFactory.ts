@@ -3,5 +3,6 @@ import { RejectConnectionRequestUseCase } from "../../../services/connection/rej
 
 export function makeRejectConnectionRequestUseCase() {
   const repository = new ConnectionDataBase();
-  const useCase = new RejectConnectionRequestUseCase(repository)
+  const useCase = new RejectConnectionRequestUseCase(repository);
+  return useCase;
 };

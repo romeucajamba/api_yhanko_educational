@@ -4,4 +4,5 @@ import { AcceptConnectionRequestUseCase } from "../../../services/connection/acc
 export function makeAcceptConnectionRequestUseCase() {
   const repository = new ConnectionDataBase();
   const useCase = new AcceptConnectionRequestUseCase(repository)
+  return useCase;
 };
