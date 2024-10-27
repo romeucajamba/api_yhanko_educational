@@ -3,7 +3,7 @@ import { UpadateMessageUseCases } from "../../services/chat/updateMessageUseCase
 import { Message } from "@prisma/client";
 
 export class UpdateMessageController {
-  constructor(private messageUseCases: UpadateMessageUseCases, private io: Server) {}
+  constructor(private messageUseCases: UpadateMessageUseCases) {}
 
   async updateMessage(socket: Socket, messageId: string, newContent: Partial<Message>) {
 

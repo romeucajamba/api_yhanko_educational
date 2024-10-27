@@ -20,14 +20,14 @@ export async function chatRoutes(io: Server) {
   const updateMessageUseCase = updateMessageUseCases();
 
   const sendMessageController = new SendMessageController(sendMessageUseCase, io);
-  const getMessageController = new GetMessageController(getMessageUseCase, io);
-  const deleteMessageController = new DeleteMessageController(deleteMessageUseCase, io)
-  const updateController = new UpdateMessageController(updateMessageUseCase, io)
+  const getMessageController = new GetMessageController(getMessageUseCase);
+  const deleteMessageController = new DeleteMessageController(deleteMessageUseCase)
+  const updateController = new UpdateMessageController(updateMessageUseCase)
 
   io.on("connection", (socket: Socket) => {
     socket.on("sendMessage", (data) => sendMessageController.sendMessage(socket, data));
     socket.on("getUserMessages", (userId) => getMessageController.getUserMessages(socket, userId));
     socket.on("deleteMessage", (messageId) => deleteMessageController.deleteMessage(socket, messageId));
-    socket.on("updateMessage", (messageId, data) => updateController.updateMessage(socket, messageId, data));
+    socket.on("updateMessage", (messageId, newContent) => updateController.updateMessage(socket, messageId, newContent));
   });
 }

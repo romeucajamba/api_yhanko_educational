@@ -13,6 +13,7 @@ import { profileRoutes } from "./routes/profile.routes";
 import { connectionRoutes } from "./routes/connection.routes";
 import { notificationRoutes } from "./routes/notification.routes";
 import { chatRoutes } from "./routes/chat.routes";
+import { usageEventRoutes } from "./routes/analytics.routes";
 
 export const app = fastify();
 
@@ -43,6 +44,7 @@ const io = new Server(server, {
 });
 
 chatRoutes(io);
+usageEventRoutes(io)
 app.register(userRoutes);
 app.register(settingRoutes);
 app.register(profileRoutes);
