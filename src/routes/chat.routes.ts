@@ -1,7 +1,14 @@
-import { FastifyInstance } from "fastify";
-import { verifyJWT } from "@/middlewares/verify-jwt";
+import { Server, Socket } from "socket.io";
+import { createMessageUseCases } from "../factories/MessageFactory";
+import { MessageController } from "../controllers/MessageController";
 
-export async function chatRoutes(app: FastifyInstance) {
-        //Permite que só os usuários autenticados vão conseguir chamar as rotas
-    app.addHook('onRequest', verifyJWT)
+export async function chatRoutes(io: Server) {
+  const messageUseCases = createMessageUseCases();
+  const messageController = new MessageController(messageUseCases, io);
+
+  io.on("connection", (socket: Socket) => {
+    socket.on("sendMessage", (data) => messageController.sendMessage(socket, data));
+    socket.on("getUserMessages", (userId) => messageController.getUserMessages(socket, userId));
+    socket.on("deleteMessage", (messageId) => messageController.deleteMessage(socket, messageId));
+  });
 }

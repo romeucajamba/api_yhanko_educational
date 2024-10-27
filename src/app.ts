@@ -4,12 +4,15 @@ import { env } from "./env";
 import  cors  from '@fastify/cors';
 import fastifyJwt from "@fastify/jwt";
 import fastifyCookie from "@fastify/cookie";
+import http from "http";
+import { Server } from "socket.io";
 
 import { userRoutes } from "./routes/user.routes";
 import { settingRoutes } from "./routes/settings.routes";
 import { profileRoutes } from "./routes/profile.routes";
 import { connectionRoutes } from "./routes/connection.routes";
 import { notificationRoutes } from "./routes/notification.routes";
+import { chatRoutes } from "./routes/chat.routes";
 
 export const app = fastify();
 
@@ -30,8 +33,16 @@ app.register(cors, {
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
-  });
+});
 
+// Configuração do Socket.IO no servidor HTTP
+const server = http.createServer(app.server);
+
+const io = new Server(server, {
+  cors: { origin: "*" },
+});
+
+chatRoutes(io);
 app.register(userRoutes);
 app.register(settingRoutes);
 app.register(profileRoutes);

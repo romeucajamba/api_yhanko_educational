@@ -8,11 +8,11 @@ export async function notificationRoutes(app: FastifyInstance){
       
   app.post("/notifications", createNotificationController);
     
-  app.patch("/notifications/:id/read",  readNotificationController);
+  app.put("/notifications/:id/read",  readNotificationController);
 
-  app.get('notifications/:userId/all', getNotificationsController);
+  app.get('/notifications/:userId/all', getNotificationsController);
 
-  app.delete('notifications/delete/:userId/all', deleteNotificationController)
+  app.delete('/notifications/delete/:userId/all', deleteNotificationController)
 }
 
 /*
