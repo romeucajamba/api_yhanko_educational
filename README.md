@@ -1,13 +1,160 @@
-## Descrição
+# 📚 **Yhanko Edu Tecnology - API para Rede Social Educacional**
 
-Rede social para estudantes de tecnologia de nível nacional que recolhe dados de várias escolas e universidades trazendo os melhores professores, instituições de ension de TIC e não só, também os melhores canais virtuais para cursos de tecnologia, o sitema permite partilha de ideia, publicações, conversa entre usuário, adicionar as iformações necessárias no perfil, colaborar em projetos, criar agendas e obter lembretes e notificações frequentes, possibilita a alteração de idioma, palavra passe e ter um documento de como a plataforma funciona.
+Uma API projetada para conectar desenvolvedores a recursos educacionais e permitir a interação entre eles, promovendo o aprendizado e o desenvolvimento conjunto. A YhankoEt possibilita a busca por cursos, plataformas, instituições e professores de qualidade, além de funcionalidades de rede social, chatbot, notificações e análise de desempenho.  
+
+## 📖 **Sobre o Projeto**
+
+YhankoET é uma API para uma rede social que oferece recursos e ferramentas para estudantes de tecnologia. Com ela, os usuários podem se cadastrar, interagir, criar conexões, acessar conteúdo educativo, monitorar seu progresso e muito mais. A API será consumida por um aplicativo mobile.
+
+### 🎯 **Principais Funcionalidades**
+- **Perfil**: cadastro, edição, foto de perfil, capa, biografia.
+- **Interação**: chat privado, chatbot, publicações, comentários.
+- **Recursos Educacionais**: busca por instituições, canais e professores de tecnologia.
+- **Desempenho**: gráfico de monitoramento de atividades.
+- **Organização Pessoal**: agenda, lista de tarefas, lembretes e bloco de notas.
+- **Configurações**: alteração de senha, idioma, tema, etc.
+
+## 🛠 **Tecnologias Utilizadas**
+
+- **Backend**: Node.js, Fastify, TypeScript, Swagger
+- **Banco de Dados**: PostgreSQL com ORM Prisma
+- **Autenticação e Segurança**: JWT, criptografia de senhas
+- **Validação de Dados**: Zod
+- **Upload de Arquivos**: multer
+- **WebSocket**: Socket.io
+- **Integração de Chatbot**: Gemini API (Google)
+
+## 🗂 **Estrutura da Arquitetura**
+
+A API segue uma **Arquitetura Monolítica** com princípios **SOLID** para garantir alta coesão e baixo acoplamento, o que facilita a manutenção e escalabilidade. 
+
+### **Principais Componentes**
+1. **Controllers**: Contêm a lógica dos endpoints, manipulando requisições e respostas.
+2. **Use Cases**: Aplicam a lógica de negócio, separando regras específicas.
+3. **Repositories**: Realizam as operações com o banco de dados.
+4. **Factories**: Criam instâncias das classes, facilitando a gestão de dependências.
+5. **Middlewares**: Tratam autenticação, autorização e validações gerais.
+
+## ⚙️ **Requisitos e Configurações do Projeto**
+
+### **Instalação**
+Para configurar o projeto localmente:
+```bash
+# Clonar o repositório
+git clone https://github.com/username/DevConnect.git
+
+# Acessar o diretório do projeto
+cd DevConnect
+
+# Instalar dependências
+npm install
+
+# Configurar o banco de dados
+npx prisma migrate dev --name init
+```
+
+### **Iniciar a API**
+```bash
+# Iniciar o servidor
+npm run dev
+```
+
+### **Configuração de Variáveis de Ambiente**
+Crie um arquivo `.env` com as seguintes variáveis:
+```
+DATABASE_URL=postgresql://user:password@localhost:5432/devconnect
+JWT_SECRET=your_secret_key
+GOOGLE_GEMINI_API_KEY=your_gemini_api_key
+```
+
+## ✅ **Requisitos Funcionais e Não Funcionais**
+
+### **Funcionais**
+- Cadastro e autenticação de usuários
+- Recuperação e alteração de senha
+- Manipulação de perfis (edição, visualização, upload de foto de perfil)
+- Criação e manipulação de postagens e comentários
+- Envio de mensagens privadas e interação com chatbot
+- Sistema de busca e recomendações de cursos e instituições
+- Integração de lista de amigos, notificações e estatísticas de uso
+
+### **Não Funcionais**
+- Persistência dos dados em PostgreSQL
+- Autenticação via JWT
+- Senhas armazenadas de forma segura e criptografada
+- Interfaces de dados alinhadas na horizontal (específico do frontend)
+
+## 📋 **Estrutura da API**
+
+### **Autenticação**
+| Método | Endpoint             | Descrição                      |
+|--------|-----------------------|-------------------------------|
+| POST   | `/auth/register`     | Cadastro de usuário           |
+| POST   | `/auth/login`        | Login do usuário              |
+| POST   | `/auth/recover`      | Recuperação de senha          |
+
+### **Perfil do Usuário**
+| Método | Endpoint                 | Descrição                            |
+|--------|---------------------------|--------------------------------------|
+| GET    | `/user/profile`           | Visualizar dados do perfil          |
+| PUT    | `/user/profile`           | Editar dados do perfil              |
+| POST   | `/user/profile/picture`   | Upload de foto de perfil            |
+| DELETE | `/user/profile/picture`   | Remover foto de perfil              |
+
+### **Chat e Mensagens**
+| Método | Endpoint                  | Descrição                                  |
+|--------|----------------------------|--------------------------------------------|
+| GET    | `/messages`                | Listar mensagens                           |
+| POST   | `/messages`                | Enviar nova mensagem                       |
+| DELETE | `/messages/:id`            | Apagar uma mensagem                        |
+| POST   | `/chatbot/message`         | Enviar mensagem para o chatbot             |
+
+### **Conteúdos Educacionais**
+| Método | Endpoint                       | Descrição                             |
+|--------|--------------------------------|---------------------------------------|
+| GET    | `/education/institutions`      | Listar instituições de ensino         |
+| GET    | `/education/channels`          | Listar canais e professores           |
+| GET    | `/education/recommendations`   | Recomendações personalizadas          |
+
+### **Postagens e Interações**
+| Método | Endpoint                | Descrição                                   |
+|--------|--------------------------|---------------------------------------------|
+| GET    | `/posts`                 | Listar postagens                            |
+| POST   | `/posts`                 | Criar nova postagem                         |
+| PUT    | `/posts/:id`             | Editar uma postagem                         |
+| DELETE | `/posts/:id`             | Apagar uma postagem                         |
+| POST   | `/posts/:id/comment`     | Adicionar comentário na postagem            |
+
+## 📊 **Monitoramento de Desempenho**
+
+O sistema registra e monitora as interações dos usuários com a plataforma, atualizando o **gráfico de desempenho** conforme:
+- Novas postagens ou comentários
+- Interações com o chatbot
+- Criação de novos amigos
+- Atualização de informações do perfil
+
+### **Notificações e Agenda**
+- Notificações para lembretes, atividades recentes, atualizações.
+- Sistema de agenda com funcionalidades de tarefas e notas.
+
+## 🚀 **Deployment**
+
+Para o deploy em produção, é necessário configurar o servidor com:
+- Um banco de dados PostgreSQL acessível
+- Certificados SSL (caso necessário)
+- Variáveis de ambiente para chaves de API e JWT
+- Ferramentas de monitoramento e logs
+
+---
+
+## Uma visão mais técnica
 
 ## Regras de negócio
 - [ ] O usuário não pode se cadastrar na plataforma com email já cadastrado;
 - [ ] O sistema deve adicionar a sua nacionalidade na plataforma;
 - [ ] O usuário só deve ter no máximo 5000 conexões ou amigos;
 
-
+---
 
 ## Requisitos funcionais
 - [ ] O sistema deve permitir o cadastro de usuário;
@@ -67,6 +214,8 @@ Rede social para estudantes de tecnologia de nível nacional que recolhe dados d
 - [ ] O sistema deve permitir visualizar publicações;
 - [ ] O sistema deve permitir o usuário partilhar imagens, vídeos e textos nas publicações;
 - [ ] O sistema deve permitir enviar vídeos, imagens nas conversas privadas;
+
+---
 
 ## Requisitos não funcionais
 - [ ] A senha do usuário precisa estar criptografada;
