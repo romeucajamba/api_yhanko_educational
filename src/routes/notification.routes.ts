@@ -1,6 +1,8 @@
 import { FastifyInstance } from "fastify";
 import { createNotificationController } from "../controllers/notification/createNotificationController";
 import { readNotificationController } from "../controllers/notification/readNotificationController";
+import { getNotificationsController } from "../controllers/notification/getNotificationsController";
+import { deleteNotificationController } from "../controllers/notification/deleteNotificationController";
 
 export async function notificationRoutes(app: FastifyInstance){
       
@@ -8,7 +10,9 @@ export async function notificationRoutes(app: FastifyInstance){
     
   app.patch("/notifications/:id/read",  readNotificationController);
 
-  app.get('notifications/:userId/all')
+  app.get('notifications/:userId/all', getNotificationsController);
+
+  app.delete('notifications/delete/:userId/all', deleteNotificationController)
 }
 
 /*
