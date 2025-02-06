@@ -31,6 +31,6 @@ jobs:
       - run: npm run test # vai executar os testes unitário
         env:
           NODE_ENV: dev
-          JWT_SECRET: bsdhghdadbnmamdnjkajhfhsguiyeuyuioerweoincbvm
+          JWT_SECRET: 
           PORT: 4000
-          DATABASE_URL: "postgresql://ETDB_owner:KQ26khTabldq@ep-green-flower-a5nh5nw5-pooler.us-east-2.aws.neon.tech/ETDB?sslmode=require"
+          DATABASE_URL: ""
